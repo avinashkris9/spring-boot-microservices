@@ -1,0 +1,19 @@
+## Docker file 
+ ##docker build --build-arg artifactId="eureka-server" --build-arg version=0.0.1-SNAPSHOT .
+
+FROM alpine as builder
+FROM maven:3.2-jdk-8 as build
+WORKDIR /opt/eureka-server/
+COPY . /opt/eureka-server/
+RUN mvn package
+
+
+
+FROM openjdk:8-jre-alpine
+ARG artifactId
+ARG version
+ENV artifact=${artifactId}-${version}.jar
+EXPOSE 8761
+WORKDIR /opt/eureka-server/
+COPY --from=build /opt/eureka-server/target/${artifact} .
+CMD java -jar $artifact
