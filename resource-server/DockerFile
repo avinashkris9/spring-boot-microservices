@@ -4,7 +4,7 @@
 FROM alpine as builder
 FROM maven:3.2-jdk-8 as build
 WORKDIR /opt/resource-server/
-COPY . /opt/r-server/
+COPY . /opt/resource-server/
 RUN mvn package
 
 
