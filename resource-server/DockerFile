@@ -5,15 +5,15 @@ FROM alpine as builder
 FROM maven:3.2-jdk-8 as build
 WORKDIR /opt/resource-server/
 COPY . /opt/resource-server/
-RUN mvn package
+RUN mvn clean package
+#CMD ls -l /opt/resource-server/target
 
 
-
-FROM openjdk:8-jre-alpine
-ARG artifactId
-ARG version
-ENV artifact=${artifactId}-${version}.jar
-EXPOSE 8761
-WORKDIR /opt/resource-server/
-COPY --from=build /opt/resource-server/target/${artifact} .
-CMD java -jar $artifact
+ FROM openjdk:8-jre-alpine
+ ARG artifactId
+ ARG version
+ ENV artifact=${artifactId}-${version}.jar
+ EXPOSE 8081
+ WORKDIR /opt/resource-server/
+ COPY --from=build /opt/resource-server/target/${artifact} .
+ CMD java -jar $artifact --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka
