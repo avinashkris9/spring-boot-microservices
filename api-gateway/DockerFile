@@ -16,4 +16,4 @@ ENV artifact=${artifactId}-${version}.jar
 EXPOSE 8761
 WORKDIR /opt/api-gateway/
 COPY --from=build /opt/api-gateway/target/${artifact} .
-CMD java -jar $artifact
+CMD java -jar $artifact --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka
