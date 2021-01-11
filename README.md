@@ -30,7 +30,7 @@ docker network create spring-boot-microservices
     ```sh
     docker run -d  -p8761:8761  --network spring-boot-microservices --network-alias eureka  --name eureka-server eureka-server 
     ```
-
+1.
 
 ### - API Gateway
 
