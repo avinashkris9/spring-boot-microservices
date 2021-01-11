@@ -3,9 +3,10 @@
 
 FROM alpine as builder
 FROM maven:3.2-jdk-8 as build
+ARG version
 WORKDIR /opt/config-server/
 COPY . /opt/config-server/
-RUN mvn clean package
+RUN mvn clean package "-DbuildId=${version}
 #CMD ls -l /opt/config-server/target
 
 
