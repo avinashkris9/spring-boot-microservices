@@ -1,0 +1,56 @@
+services:
+  eureka:
+    build:
+      context: ./eureka-server
+      dockerfile: DockerFile
+      args:
+        - version=0.0.1-SNAPSHOT
+        - artifactId=eureka-server
+  
+    ports:
+      - "8761:8761"
+    networks:
+     - spring-boot-microservices
+  resource-server:
+    build: 
+      context: ./resource-server
+      dockerfile: DockerFile
+      args:
+        - version=0.0.1-SNAPSHOT
+        - artifactId=resource-server
+
+    ports:
+      - "8081:8081"
+    networks:
+     - spring-boot-microservices
+
+  config-server:
+    build:
+      context: ./config-server
+      dockerfile: DockerFile
+      args:
+        artifactId: config-server
+        version: 0.0.1-SNAPSHOT
+
+    ports:
+      - "8888:8888"
+    volumes:
+      - //D//GIT//spring-boot-microservices//config-server//src//main//resources//config-repo:/opt/config-repo
+    networks:
+     - spring-boot-microservices
+  api-gateway:
+    build: 
+      context: ./api-gateway/
+      dockerfile: DockerFile
+      args:
+        artifactId: api-gateway
+        version: 0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    networks:
+     - spring-boot-microservices
+networks:
+  spring-boot-microservices:
+    name: spring-boot-microservices
+
+
