@@ -14,8 +14,7 @@ For sake of simplicity, the config server uses local file system as repository.
     ``` 
 
     ```sh
-    
-    docker run -d -p8888:8888 --network spring-boot-microservices --network-alias config-server --volume //D//GIT//spring-boot-microservices//config-server//src//main//resources//config-repo:/opt/config-repo --name config-server config-server
+        docker run -d -p8888:8888 --network spring-boot-microservices --network-alias config-server --volume d///git///spring-boot-microservices///config-server//src///main///resources///config-repo:/opt/config-repo --name config-server config-server
     ```
-
+ The `--volume` option indicates the local file directory for config server. In docker with Windows 10 WLS2 , the directory names seems to be case sensitive.
 

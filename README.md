@@ -25,12 +25,14 @@ Docker by default create a bridge network for same host container. Here we are c
    1. Build using `docker build` command .
 ```sh
     docker build --build-arg artifactId="eureka-server" --build-arg version=0.0.1-SNAPSHOT -t eureka-server:latest . 
+
 ```
 
    2. Run using `docker run` command .
 ```sh
     docker run -d  -p8761:8761  --network spring-boot-microservices --network-alias eureka  --name eureka-server eureka-server 
 ```
+
 
 ### - API Gateway
    1. Build using `docker build` command .
